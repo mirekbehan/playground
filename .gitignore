@@ -1,0 +1,17 @@
+## generic files to ignore ~ you can change it at your will
+*.lock
+*.out
+*.pyc
+*.swp
+*.swo
+*.*~
+.project
+.pydevproject
+.settings
+.idea
+TODO
+.coverage
+htmlcov/*
+logs/
+build/
+*.pdf
