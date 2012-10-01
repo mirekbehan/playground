@@ -6,6 +6,7 @@ import com.angelmobil.strike.Meteors.Meteor;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
@@ -18,12 +19,14 @@ public class Ship extends Thread {
 		class Shot {
 			int x, y;
 			int direction, speed;
+			int size;
 
 			Paint paint;
 			public Shot() {
 				paint = new Paint();
 				paint.setARGB(255, (int) (Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
 				paint.setStyle(Style.FILL);
+				size = (int) (Math.random() * 20 + 10);
 			}
 			
 			public void move() {
@@ -55,7 +58,9 @@ public class Ship extends Thread {
 			}
 			
 			public void draw(Canvas canvas) {
-				canvas.drawRect(x-5, y-5, x+5, y+5, paint);		
+				//canvas.drawRect(x-5, y-5, x+5, y+5, paint);
+				Rect rec = new Rect(x-size/2, y-size/2, x+size/2, y+size/2);
+				canvas.drawBitmap(bmpShot, null, rec, null);
 			}
 			
 		}
@@ -66,26 +71,23 @@ public class Ship extends Thread {
 		int size;
 		Paint paint;
 		
-		Bitmap bmpJet;
+		Bitmap bmpJet, bmpShot;
 		Rect recJet;
 
 		int width, height;
 		Path path;
 				
 		public Ship(Context context) {
-			
-			x = width / 2;
-			y = height / 2;
-			
-			size = (int) (Math.random() * 10) + 10;
-			speed = (int) (Math.random() * 5);
+			size = 30;
+			//speed = (int) (Math.random() * 5);
 			direction = (int) (Math.random() * 360);
 			
 			paint = new Paint();
 			paint.setARGB(255, (int) (Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
 			paint.setStyle(Style.FILL);
 			
-		    //bmpJet = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
+		    bmpJet = BitmapFactory.decodeResource(context.getResources(), R.drawable.ship);
+		    bmpShot = BitmapFactory.decodeResource(context.getResources(), R.drawable.shot);
 		}
 		
 		public void move() {
@@ -101,19 +103,19 @@ public class Ship extends Thread {
 			// erase
 			//if (recJet!=null) canvas.drawRect(recJet, getPaintBack());
 		        
-			//recJet = new Rect(x-10, y-10, x+10, y+10);
-			//canvas.drawBitmap(bmpJet, null, recJet, null);	
-			path = new Path();
+/*			path = new Path();
 			path.moveTo(x, y - 10);
 			path.lineTo(x + 5, y + 10);
 			path.lineTo(x - 5, y + 10);
 			path.lineTo(x, y -10);
-
+*/
 			Matrix matrix = new Matrix();
 			matrix.reset();
 			matrix.setRotate(direction, x, y);
 			canvas.setMatrix(matrix);               
-			canvas.drawPath(path, paint);
+			recJet = new Rect(x-size/2, y-size/2, x+size/2, y+size/2);
+			canvas.drawBitmap(bmpJet, null, recJet, null);	
+			//canvas.drawPath(path, paint);
 			canvas.setMatrix(null);
 
 			
@@ -122,6 +124,12 @@ public class Ship extends Thread {
 			}
 		}
 		
+		public void setup(int width, int height){
+			this.width = width;
+			this.height = height;
+			x = width / 2;
+			y = height / 2;
+		}
 	
 		CopyOnWriteArrayList<Shot> shots = new CopyOnWriteArrayList<Shot>();
 		public void shot() {
