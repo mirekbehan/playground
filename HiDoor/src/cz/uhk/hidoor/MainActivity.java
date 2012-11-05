@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState); 
         setContentView(R.layout.activity_main);
         addListenerOnButton();
-        /*nastaveni apapteru*/
+        /*nastaveni apapteru */
         this.adapter = NfcAdapter.getDefaultAdapter(this);
         pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 		IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
