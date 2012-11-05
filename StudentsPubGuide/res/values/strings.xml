@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">StudentsPubGuide</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_hlavni">Students Pub Guide</string>
+    <string name="title_activity_mapa">Zobrazení na mapě</string>
+    <string name="title_activity_test">TestActivity</string>
+
+</resources>

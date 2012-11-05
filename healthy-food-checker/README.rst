@@ -6,9 +6,9 @@ Healthy-food-checker
 
 "This is the greatest project in the world." - Jeremy Clarkson
 
-Version 0.0
+Version 0.1
 -----------
 
- * none
+    Small front-end app written in HTML and JS. This app allows you fulltext search for food additives in JSON data structures.
 
 Created by Pavel Vavruska @ FIM UHK SMAP 2012

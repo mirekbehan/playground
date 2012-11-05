@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+
+<Placemark><name>[S50] Praha 5-Lahovice</name><description>Strakonická; do centra</description><Point><coordinates>14.395503,50.001558,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Ktová</name><description>směr Turnov</description><Point><coordinates>15.247766,50.519815,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Malá Skála</name><description>směr Železný Brod</description><Point><coordinates>15.189388,50.637586,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Malá Skála</name><description>směr Turnov</description><Point><coordinates>15.196328,50.643533,0</coordinates></Point></Placemark>
+<Placemark><name>[S80] E442</name><description>Turnov; směr Jičín</description><Point><coordinates>15.144242,50.587997,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Turnov</name><description>Bezručova; do centra</description><Point><coordinates>15.149286,50.590011,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Turnov</name><description>5.května; do centra</description><Point><coordinates>15.166869,50.589903,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Radvánovice</name><description>směr Turnov</description><Point><coordinates>15.212758,50.552200,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Radvánovice</name><description>směr Jičín</description><Point><coordinates>15.214284,50.550656,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Praha 4-Libuš</name><description>Novodvorská; oba směry; krabice neobsazena</description><Point><coordinates>14.454197,50.011693,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Praha 9-Prosek</name><description>Vysočanská; oba směry; krabice neobsazena</description><Point><coordinates>14.493992,50.122266,0</coordinates></Point></Placemark>
+<Placemark><name>[S40] Praha 4-Podolí</name><description>Jeremenkova; oba směry; krabice neobsazena</description><Point><coordinates>14.423770,50.043930,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Praha 8-Kobylisy</name><description>Čimická; oba směry; krabice neobsazena</description><Point><coordinates>14.442960,50.125760,0</coordinates></Point></Placemark>
+<Placemark><name>[S50] Praha 6-Liboc</name><description>Evropská; z centra; krabice neobsazena</description><Point><coordinates>14.314432,50.093130,0</coordinates></Point></Placemark>
+
+
+</kml>
