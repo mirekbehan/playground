@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.View.*;
 
 
-public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Callback, OnTouchListener, OnLongClickListener {
+public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Callback, OnTouchListener {
 	
 	Thread mThread;
 	SurfaceHolder mSurfaceHolder;
@@ -36,7 +36,6 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
 	    	    
 	    setOnTouchListener(this);
 	    
-	    //setOnLongClickListener(this);
 	    //this.setZOrderOnTop(true);
 	    //getHolder().setFormat(PixelFormat.TRANSLUCENT);
 	}
@@ -84,13 +83,14 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
 	            if (canvas!=null) {
 	            drawBackground(canvas);
 	            if (ship!=null) ship.draw(canvas);
-	    		if(meteors!=null) meteors.draw(canvas);
+	    		if (meteors!=null) meteors.draw(canvas);
 	            
 	            // draw control panel
 	            canvas.drawCircle(50, height - 50, 50, getPaint());
 	            canvas.drawCircle(width - 50, height - 50, 50, getPaint());
 	            // draw touch point 
-	            //canvas.drawCircle(tx, ty, 10, getTextPaint());
+	            canvas.drawCircle(tx, ty, 10, getTextPaint());
+	            canvas.drawCircle(tx1, ty1, 10, getTextPaint());
 	            	            
 	            // draw refresh rate and fps
 	            long ms = (new Date().getTime() - timestamp);
@@ -110,7 +110,7 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
 	Rect controlMove,controlShot;
 	
 	public void drawBackground(Canvas canvas) {
-        canvas.drawARGB(100, 255, 255, 80);
+        canvas.drawARGB(255, 0, 255, 80);
 	}
 	
 
@@ -154,9 +154,8 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
 		this.height = height;
 		controlMove = new Rect(0, height - 100, 100, height);
 		controlShot = new Rect(width - 100, height - 100, width, height);
-		meteors.setup(width,height);
-		ship.width = width;
-		ship.height = height;
+		meteors.setup(context, width,height);
+		ship.setup(width,height);
 	}
 
 	@Override
@@ -212,12 +211,7 @@ public class GameView extends SurfaceView implements Runnable, SurfaceHolder.Cal
 		return true;
 	}
 
-	@Override
-	public boolean onLongClick(View v) {
-		return false;
-	}
 	
-	  
 
 	
 }
