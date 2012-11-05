@@ -5,13 +5,12 @@
 *.swp
 *.swo
 *.*~
-.project
 .pydevproject
-.settings
 .idea
 TODO
 .coverage
 htmlcov/*
 logs/
 build/
-*.pdf
+bin/
+gen/
