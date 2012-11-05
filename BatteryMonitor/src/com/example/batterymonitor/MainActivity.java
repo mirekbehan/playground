@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
             TextView tvLevel = (TextView)findViewById(R.id.level);
             tvLevel.setText(String.valueOf(level) + "%");
             
-            //obrázek stavu nabití
+            //obrï¿½zek stavu nabitï¿½
             if (level > 75){
             	ImageView imgBat = (ImageView)findViewById(R.id.battImg);
             	imgBat.setImageResource(R.drawable.batteryfull);
@@ -84,13 +84,13 @@ public class MainActivity extends Activity {
             tvScale.setText(String.valueOf(100 - scale) + "%");
             
             TextView tvTemperature = (TextView)findViewById(R.id.temperature);
-            tvTemperature.setText(String.valueOf(temperature/(float)10) + "°C");
+            tvTemperature.setText(String.valueOf(temperature/(float)10) + "ï¿½C");
             
             TextView tvVoltage = (TextView)findViewById(R.id.voltage);
             tvVoltage.setText(String.valueOf(voltage) + "mV");
             
-          /*  TextView tvUsage = (TextView)findViewById(R.id.usage);
-            tvUsage.setText(String.valueOf(usage) + "mA");*/
+            TextView tvUsage = (TextView)findViewById(R.id.usage);
+            tvUsage.setText(String.valueOf(usage) + "mA");
             
         } 
       };  
