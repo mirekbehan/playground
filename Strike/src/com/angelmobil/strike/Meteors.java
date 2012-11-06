@@ -3,8 +3,13 @@ package com.angelmobil.strike;
 import java.util.Stack;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Paint.Style;
 
 public class Meteors extends Thread {
@@ -14,19 +19,22 @@ public class Meteors extends Thread {
 	class Meteor {
 		int x, y;
 		int direction, speed;
+		int trotation, rotation;
 		int size;
 		Paint paint;
 		
 		public Meteor() {
 			x = (int) (Math.random() * width);
 			y = (int) (Math.random() * height);
-			size = (int) (Math.random() * 10) + 10;
+			size = (int) (Math.random() * 30) + 20;
 			speed = (int) (Math.random() * 5);
 			direction = (int) (Math.random() * 360);
-			
+			rotation = (int) (Math.random() * 10);
+			trotation = 0;
 			paint = new Paint();
 			paint.setARGB(255, (int) (Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
 			paint.setStyle(Style.FILL);
+			
 		}
 		
 		public void move(int width, int height) {
@@ -36,13 +44,23 @@ public class Meteors extends Thread {
 		     if (y > height) y = 0;
 		     if (x < 0) x = width;
 		     if (y < 0) y = height;
+		     trotation += rotation; 
 		}
 		
 		public void draw(Canvas canvas) {
-			canvas.drawCircle(x, y, size, paint);
+			//canvas.drawCircle(x, y, size, paint);
+			Matrix matrix = new Matrix();
+			matrix.reset();
+			matrix.setRotate(trotation, x, y);
+			canvas.setMatrix(matrix);               
+			Rect rec = new Rect(x-size/2, y-size/2, x+size/2, y+size/2);
+			canvas.drawBitmap(bmp, null, rec, null);	
+			//canvas.drawPath(path, paint);
+			canvas.setMatrix(null);
 		}
 	}
 	
+	Bitmap bmp;
 	
 	
 	int width, height, count;
@@ -50,9 +68,12 @@ public class Meteors extends Thread {
 		this.count = count;
 	}
 
-	public void setup(int width, int height) {
+	Context context;
+	public void setup(Context context, int width, int height) {
 		this.width = width;
 		this.height = height;
+		this.context = context;
+		bmp =  BitmapFactory.decodeResource(context.getResources(), R.drawable.meteor);
 	}
 	
 	static public CopyOnWriteArrayList<Meteor> stack = new CopyOnWriteArrayList<Meteor>();
