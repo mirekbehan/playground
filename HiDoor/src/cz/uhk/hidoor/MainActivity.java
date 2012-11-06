@@ -47,8 +47,9 @@ public class MainActivity extends Activity {
 		tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
 		writeTagFilters = new IntentFilter[] { tagDetected };
 		
-		TextView textView = (TextView) findViewById(R.id.textView2); 
-        textView.setText(this.Zapnuto()); 
+		TextView textView = (TextView) findViewById(R.id.textView2);
+		//prompt if return disabled
+        textView.setText(NfcController.Zapnuto(this)); 
                 
     }
 
@@ -65,7 +66,8 @@ public class MainActivity extends Activity {
 	    		EditText text = (EditText)findViewById(R.id.text); 
 	        	String value = text.getText().toString();
 	    		try {
-					this.tagWrite(value,mytag);
+	    			NfcController.tagWrite(value,mytag);
+					Toast.makeText(this, "Zapsano", Toast.LENGTH_LONG ).show();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -75,53 +77,15 @@ public class MainActivity extends Activity {
 				}
 			}
     	} else {
-    		this.tagRead(intent);
+    			String text = NfcController.tagRead(intent);
+				Toast.makeText(this, text, Toast.LENGTH_LONG ).show();
+				TextView textView = (TextView) findViewById(R.id.zprava); 
+		        textView.setText(text);
     	}
 	}
     
-    private void tagRead(Intent intent) {
-    	if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())){
-			 Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-			 NdefMessage msg = (NdefMessage) rawMsgs[0];
-			 NdefRecord cardRecord = msg.getRecords()[0];
-			 byte[] payload = cardRecord.getPayload();
-			 
-			//Get the Text Encoding
-          String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
-          
-          //Get the Language Code
-          int languageCodeLength = payload[0] & 0077;
-          try {
-				String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-          
-          //Get the Text
-           String text;
-			try {
-				text = new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				text = "Nepovedlo se";
-			}
-			Toast.makeText(this, text, Toast.LENGTH_LONG ).show();
-			TextView textView = (TextView) findViewById(R.id.zprava); 
-	        textView.setText(text);
-    	}
-    }
 
-    private void tagWrite(String text, Tag tag) throws IOException, FormatException {
-    	
-    	NdefRecord[] records = { createRecord(text) };
-        NdefMessage message = new NdefMessage(records);
-        Ndef ndef = Ndef.get(tag);
-        ndef.connect();
-        ndef.writeNdefMessage(message);
-        ndef.close();
-        Toast.makeText(this, "Zapsano", Toast.LENGTH_LONG ).show();
-    }
+    
     
     @Override
     public void onResume(){
@@ -153,13 +117,7 @@ public class MainActivity extends Activity {
     	}
     }
     
-    public String Zapnuto() {
-    	NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-    	if (adapter.isEnabled()) {
-    		return "NFC Adapter is enabled";
-    	} else { return "NFC Adapter is disabled";} 
-    }
-    
+     
     public void addListenerOnButton() {
     	 
     	switchReadWrite = (ToggleButton) findViewById(R.id.switchReadWrite);
@@ -173,27 +131,5 @@ public class MainActivity extends Activity {
     	});
      
       }
-    
-    private NdefRecord createRecord(String text) throws UnsupportedEncodingException {
-
-        //create the message in according with the standard
-        String lang = "cs";
-        byte[] textBytes = text.getBytes();
-        byte[] langBytes = lang.getBytes("US-ASCII");
-        int langLength = langBytes.length;
-        int textLength = textBytes.length;
-
-        byte[] payload = new byte[1 + langLength + textLength];
-        payload[0] = (byte) langLength;
-
-        // copy langbytes and textbytes into payload
-        System.arraycopy(langBytes, 0, payload, 1, langLength);
-        System.arraycopy(textBytes, 0, payload, 1 + langLength, textLength);
-
-        NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, new byte[0], payload);
-        return recordNFC;
-  }
-    
-   
     
 }
