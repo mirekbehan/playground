@@ -1,12 +1,8 @@
 package cz.uhk.hidoor;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import android.content.Context;
-import android.widget.Toast;
 
 public class Door {
 	
@@ -44,51 +40,51 @@ K2WGVwDwilnvSgqEuWmxgDf01qHc96mszpFIn5AvSZXs8/TQUelo
 	/**
 	 * @param args
 	 */
-	private String id="";
-	private String name="Door";
-	private Byte securityLevel=0;
-	private byte[] pswd;
+	private String id="Luzany217_01";
+	private String name="Vstupni Dvere";
+	private int securityLevel=0;
+	private String pswd = "44266e20a0235eaff5cd2fc0864cbd44508214ab6206e20ae4233553034953503bae1d29a1fc413485c4f7e6af8dd02baa0299973069521c1c7ed7cd6433ba20";
 	private String publicKey="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxcu/EOmBWHMvnkORx68awtlTpANrs5p+gRooHR4xqS+4i8KWcIKX2/y12wsBO9QuroXPQQ879nC4fcFS0eo0F/L/DTIbS0gIQ+zM9bwgL/w7kjj7DNEpZwIIUlZVsbAATjaH8ZULhTw9xESbcGHw2+5gApZq6vGASGg+af8XVd0EZx1Ih+jMfXQB8AwgPemfT5nzHX46G7W+Shc4S4eJifzon2YE+fgCisAXJ8HZ6gIeB4lmqB9yo8QbcRXdHWUxVrwrkwCvNAkocYeupGd+f3OCxftnY8yAdG02O90LQM8DsATn/7/F7G0MsmrGaYNLaUb2lfR2Bbd4HENcCoQ1fwIDAQAB";
-	private Boolean openClose=false; 
+	private static final String salt = "4/Dasd@A/dsjk69!"; 
 	
-	
-	public void checkStatus() {
-		/*door is closed or open?*/
-		
-	
-	}
-	
-	public void createDoor() {
+	public Door() {
 		
 	}
 	
-	public void openDoor(Context context) throws IOException {
-		this.pswd = hash("Ahoj");
-		String password = "Ahoj";
+	public Door(String id, String name, int securityLevel, String pswd, String publicKey) {
+		this.id = id;
+		this.name = name;
+		this.securityLevel = securityLevel;
+		this.pswd = pswd;
+		this.publicKey = publicKey;
+	}
+	
+	/*public boolean openDoor(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		if (verification(password)) {
-			Toast.makeText(context, "Ovìøeno", Toast.LENGTH_LONG).show();
-		}
+			return true;
+		} else {
+			//findDoor(password);
+			return false;}
 	}
 	
-	private boolean verification(String pswd) throws IOException{
-		if (this.pswd==hash(pswd)) {
+	private boolean verification(String pass) throws NoSuchAlgorithmException, UnsupportedEncodingException{
+		if (this.pswd.equals(getHash(pass))) {
 			return true;
 		} else {return false;}
-	}
+	}*/
 	
-	private byte[] hash(String pswd) throws IOException {
-		MessageDigest md;
-		try {
-			md = MessageDigest.getInstance("SHA-256");
-			md.update(pswd.getBytes("UTF-8")); // Change this to "UTF-16" if needed
-			byte[] digest = md.digest();		
-			return digest;
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
+	public String getHash(String password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		   MessageDigest md = MessageDigest.getInstance("SHA-512");
+		   md.update(password.getBytes());
+		   byte byteData[] = md.digest();
+		   StringBuffer hexString = new StringBuffer();
+	    	for (int i=0;i<byteData.length;i++) {
+	    		String hex=Integer.toHexString(0xff & byteData[i]);
+	   	     	if(hex.length()==1) hexString.append('0');
+	   	     	hexString.append(hex);
+	    	}
+	        return hexString.toString();
+	   }
 	
 	
 	public String getName() {
@@ -97,11 +93,23 @@ K2WGVwDwilnvSgqEuWmxgDf01qHc96mszpFIn5AvSZXs8/TQUelo
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Byte getSecurityLevel() {
+	public int getSecurityLevel() {
 		return securityLevel;
 	}
 	public void setSecurityLevel(Byte securityLevel) {
 		this.securityLevel = securityLevel;
 	}
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public String getPswd() {
+		return pswd;
+	}
+
+	public String getPublicKey() {
+		return publicKey;
+	}
+		
 }

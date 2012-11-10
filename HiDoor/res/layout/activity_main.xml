@@ -4,56 +4,34 @@
     android:layout_height="match_parent"
     android:gravity="top" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/welcome"
-        tools:context=".MainActivity" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        tools:context=".MainActivity" />
-
-    <TextView
-        android:id="@+id/zprava"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="65dp"
-        android:text="Zpráva"/>
-
     <EditText
-        android:id="@+id/text"
+        android:id="@+id/pswd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/zprava"
-        android:layout_alignParentLeft="true"
-        android:ems="10" 
-        android:inputType="text"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="38dp"
+        android:ems="10"
+        android:inputType="textPassword" >
+    </EditText>
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/text"
-        android:layout_alignParentRight="true"
-        android:onClick="zapisHodnotu"
-        android:text="Zapiš"></Button>
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/pswd"
+        android:layout_marginTop="32dp"
+        android:onClick="open"
+        android:text="Potvrdit" />
 
-    <ToggleButton
-        android:id="@+id/switchReadWrite"
+    <Button
+        android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:textOff="Čtení"
-        android:textOn="Zapisování"/>
-
+        android:layout_below="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:onClick="vlozit"
+        android:text="Vlozit" >
+    </Button>
 </RelativeLayout>
