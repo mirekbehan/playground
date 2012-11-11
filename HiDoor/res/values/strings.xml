@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">HiDoor</string>
+    <string name="welcome">Přiložte k elektronickému zámku!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">HiDoor</string>
+    <string name="textview3">TextView</string>
+
+</resources>
