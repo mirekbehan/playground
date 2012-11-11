@@ -6,6 +6,11 @@ Healthy-food-checker
 
 "This is the greatest project in the world." - Jeremy Clarkson
 
+Version 0.2
+-----------
+
+    New navigation, new features and overall improvements
+
 Version 0.1
 -----------
 
