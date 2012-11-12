@@ -1,3 +1,6 @@
 [submodule "VirtualPiano"]
 	path = VirtualPiano
 	url = https://github.com/Marax/virtual-piano.git
+[submodule "RouletteStrategyTester"]
+	path = RouletteStrategyTester
+	url = https://github.com/MichaelSpeen/RouletteStrategyTester.git
