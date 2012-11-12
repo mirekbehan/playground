@@ -1,4 +1,4 @@
-package com.example.studentspubguide;
+package com.example.studentspubguide.mapa;
 
 import java.util.ArrayList;
 

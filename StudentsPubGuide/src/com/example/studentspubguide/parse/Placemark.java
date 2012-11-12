@@ -1,26 +1,22 @@
 package com.example.studentspubguide.parse;
 
+import com.google.android.maps.GeoPoint;
+
 public class Placemark {
-	private String coordinates;
+	private String id;
+	private int latitude, longtitude;
 	private String name;
 	private String description;
-	private Point point;
 	
-	
-	
-	public Placemark(String coordinates, String name, String description) {
+
+	public Placemark(String id, String latitude, String longtitude,
+			String name, String description) {
 		super();
-		this.coordinates = coordinates;
+		this.id = id;
+		this.latitude= (int)(Integer.parseInt(latitude));
+		this.longtitude= (int)(Integer.parseInt(longtitude));
 		this.name = name;
 		this.description = description;
-	}
-
-	public String getCoordinates() {
-		return coordinates;
-	}
-
-	public void setCoordinates(String coordinates) {
-		this.coordinates = coordinates;
 	}
 
 	public String getName() {
@@ -39,15 +35,39 @@ public class Placemark {
 		this.description = description;
 	}
 
-	public Point getPoint() {
-		return point;
-	}
-
-	public void setPoint(Point point) {
-		this.point = point;
-	}
-
+	
 	public Placemark(){
 		
+	}
+	
+	@Override
+	public String toString(){
+		
+		return description + " "+name;
+		
+	}
+
+	public int getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(int latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getLongtitude() {
+		return longtitude;
+	}
+
+	public void setLongtitude(int longtitude) {
+		this.longtitude = longtitude;
 	}
 }

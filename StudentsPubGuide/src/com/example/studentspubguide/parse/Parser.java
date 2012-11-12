@@ -1,6 +1,8 @@
 package com.example.studentspubguide.parse;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +13,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class Parser {
-	private List<Placemark> myPlacemarks;
+	private ArrayList<Placemark> myPlacemarks;
 	private Document dom;
 	
 	public Parser() {
@@ -30,11 +33,14 @@ public class Parser {
 
 		try {
 
+			//URL url = new URL("http://zkonachodsport.4fan.cz/mapa.xml");
+			URL url = new URL("http://www.zkonachodsport.4fan.cz/StudentsPubGuide/index.php/feed/index");
+			
 			//Using factory get an instance of document builder
 			DocumentBuilder db = dbf.newDocumentBuilder();
 
 			//parse using builder to get DOM representation of the XML file
-			this.dom = db.parse("/mnt/sdcard/mapa.kml");
+			this.dom = db.parse(new InputSource(new InputStreamReader(url.openConnection().getInputStream(), "UTF-8")));
 
 
 		}catch(ParserConfigurationException pce) {
@@ -58,12 +64,13 @@ public class Parser {
 				//get the employee element
 				Element el = (Element)nl.item(i);
 
-				//get the Employee object
+				//get the Placemark object
 				//Employee e = getEmployee(el);
 				Placemark  pl = getPlacemark(el);
 
 				//add it to list
-				System.out.println(pl.getCoordinates());
+				//System.out.println("zprava z parseru"+pl.toString());
+				System.out.println("zde1");
 				myPlacemarks.add(pl);
 			}
 		}
@@ -73,17 +80,21 @@ public class Parser {
 		//for each <employee> element get text or int values of
 		//name ,id, age and name
 		
+		String id = getTextValue(empEl, "id");
 		String name = getTextValue(empEl,"name");
-		String desc = getTextValue(empEl, "description");
-		String coordinates = getTextValue(empEl, "coordinates");
+		String description = getTextValue(empEl, "description");
+		String latitude = getTextValue(empEl, "latitude");
+		String longtitude = getTextValue(empEl, "longtitude");
 		
+		System.out.println("z parseru"+longtitude +" " +latitude +" "+ name);
 		
 		
 		//String type = empEl.getAttribute("type");
 
 		//Create a new Employee with the value read from the xml nodes
-		Placemark pl = new Placemark(coordinates, name, desc);
-
+		Placemark pl = new Placemark(id, latitude, longtitude, name, description);
+		
+		
 		return pl;
 	}
 
@@ -112,6 +123,11 @@ public class Parser {
 	private int getIntValue(Element ele, String tagName) {
 		//in production application you would catch the exception
 		return Integer.parseInt(getTextValue(ele,tagName));
+	}
+	
+	public ArrayList<Placemark> getMyPlacmarks(){
+	
+		return myPlacemarks;
 	}
 	
 	
