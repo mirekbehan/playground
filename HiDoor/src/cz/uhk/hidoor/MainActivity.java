@@ -145,7 +145,7 @@ public class MainActivity extends Activity {
 		                	else Toast.makeText(v.getContext(), "Hesla se neshodují", Toast.LENGTH_LONG).show();
 		                	
 	                	} else 	Toast.makeText(v.getContext(), "Není zadán název!", Toast.LENGTH_LONG).show();
-                	} else Toast.makeText(v.getContext(), "Není zadána Ulice!", Toast.LENGTH_LONG).show();
+                	} else Toast.makeText(v.getContext(), "Není zadána  a èíslo popisné!", Toast.LENGTH_LONG).show();
         	}
         });
     }
