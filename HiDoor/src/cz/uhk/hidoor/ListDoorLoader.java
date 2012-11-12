@@ -24,7 +24,6 @@ public class ListDoorLoader extends ListActivity {
 		List<String> doors = new ArrayList<String>();
 		DatabaseHandler db = new DatabaseHandler(this);
 		List<Door> listDoor = db.getAll();
-		System.out.println(listDoor.size());
 		  for (int i=0; i < listDoor.size(); i++) {
 			  doors.add(listDoor.get(i).getName().toString());
 		  }

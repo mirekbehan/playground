@@ -28,9 +28,6 @@ import android.app.ListActivity;
 
 public class MainActivity extends Activity {
 	
-	static final String[] FRUITS = new String[] { "Apple", "Avocado", "Banana",
-		"Blueberry", "Coconut", "Durian", "Guava", "Kiwifruit",
-		"Jackfruit", "Mango", "Olive", "Pear", "Sugar-apple" };
 	/*Intent intent;
 	NfcAdapter adapter;
 	PendingIntent pendingIntent;
@@ -60,15 +57,7 @@ public class MainActivity extends Activity {
 				}
             }	
         });
-        
-        Button button2 = (Button)findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
-        	@Override
-            public void onClick(View v) {
-        		Door d = new Door();
-                db.addDoor(d);
-        	}
-        });
+       
         /*nastaveni apapteru */
        /* this.adapter = NfcAdapter.getDefaultAdapter(this);
         pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
