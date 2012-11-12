@@ -27,6 +27,7 @@
             $.each(data.items, function(i,item){
                 $('#output').children('ul').append('<li class="danger'+item.danger+'"><p><span class="danger'+item.danger+'">'+item.danger+'</span> <strong>'+item.tag+'</strong>: '+item.name+'</p></li>');
             });
+            $("#mylistview").listview('refresh');
         });</script>
 </body>
 </html>

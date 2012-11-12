@@ -1,3 +1,6 @@
 [submodule "VirtualPiano"]
 	path = VirtualPiano
 	url = https://github.com/Marax/virtual-piano.git
+[submodule "food-checker"]
+	path = food-checker
+	url = https://github.com/PavelVavruska/food-checker.git
