@@ -1,5 +1,8 @@
 package cz.uhk.hidoor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -64,6 +67,25 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	            cursor.moveToFirst();
 	            Door d = new Door(cursor.getString(0),cursor.getString(1),cursor.getInt(2),cursor.getString(3),cursor.getString(4));
 	        return d; } else { return null;}}
+	
+	public List<Door> getAll() {
+		SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+		List<Door> doors = new ArrayList<Door>();
+		cursor = db.query(TABLE_DOOR, new String[] { "id",
+                "name", "securityLevel", "pswd", "publicKey" },null,null, null, null, null);
+		System.out.println("ahoj");
+		cursor.moveToFirst();
+	    while (!cursor.isAfterLast()) {
+	      Door d = new Door(cursor.getString(0),cursor.getString(1),cursor.getInt(2),cursor.getString(3),cursor.getString(4));
+	      System.out.println("ahoj");
+	      doors.add(d);
+	      cursor.moveToNext();
+	    }
+	    // Make sure to close the cursor
+	    cursor.close();
+		return doors;
+	}
 	
 
 }
