@@ -1,110 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
     <style>img{ height: 100px; float: left; }</style>
-    <title>Food Checker</title>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+    <link rel="stylesheet" href="css/food.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+
 </head>
 <body>
-<div data-role="page" id="home">
-<header data-role="header">
-    <h1>Food Checker</h1>
-</header>
-<article data-role="content">
-    <div id="output">
-        <ul data-role="listview" data-inset="true" data-filter="true">
-        </ul>
-    </div>
-</article>
-<footer data-role="footer" data-position="fixed">
-    <nav data-role="navbar">
-        <ul>
-            <li><a href="#home" data-transition="slide" data-icon="grid">Food additives</a></li>
-            <li><a href="#info" data-transition="slide" data-icon="info">Info</a></li>
-        </ul>
-    </nav>
-</footer>
-</div>
-<div data-role="page" id="info">
-    <header data-role="header">
-        <h1>Food Checker</h1>
-    </header>
-    <article data-role="content">
-        <h2>About</h2>
-        <p>Built by: <a href="http://www.pvsoft.cz" target="_blank">Pavel Vavruška</a></p>
-        <p>Github: <a href="http://github.com/PavelVavruska" target="_blank">#PavelVavruska</a></p>
-        <p>Twitter: <a href="http://twitter.com/PavelVavruska" target="_blank">@PavelVavruska</a></p>
-        <p>Web: <a href="http://www.pvsoft.cz" target="_blank">www.pvsoft.cz</a></p>
-        <p>2012</p>
-    </article>
-    <footer data-role="footer" data-position="fixed">
-        <nav data-role="navbar">
-            <ul>
-                <li><a href="#home" data-transition="slide" data-direction="reverse" data-icon="grid">Food additives</a></li>
-                <li><a href="#info" data-transition="slide" data-icon="info">Info</a></li>
+
+<div data-role="page">
+    <div data-role="content">
+        <div id="output">
+            <ul data-role="listview" data-inset="true" data-filter="true">
+
             </ul>
-        </nav>
-    </footer>
+        </div>
+    </div>
 </div>
+
 <script>$.getJSON("json/new_output.js",
         function(data){
-            // VARIABLES INITIALIZATION
-            $last_value = '0';
             $.each(data.items, function(i,item){
-                // FLAGS AND QUOTES FOR DANGERS
-                switch(item.danger)
-                {
-                    case '0':
-                        $safety_quote='1/10 ~ Yes! This is completely safe to eat!'
-                    case '1':
-                        $denger_image='img/tag_green.png';
-                        $safety_quote='2/10 ~ Yes!'
-                        break;
-                    case '2':
-                        $safety_quote='3/10 ~ Yes it is.'
-                    case '3':
-                        $denger_image='img/tag_orange.png';
-                        $safety_quote='4/10 ~ Average quality, but not recommended.'
-                        break;
-                    case '4':
-                        $safety_quote='5/10 ~ It could be worst, try to avoid it.'
-                    case '5':
-                        $denger_image='img/tag_red.png';
-                        $safety_quote='6/10 ~ It is bad, but it is not going to kill you, try to avoid it.'
-                        break;
-                    case '6':
-                        $safety_quote='7/10 ~ We strongly recommend you to avoid this item.'
-                    case '7':
-                        $denger_image='img/tag_black.png';
-                        $safety_quote='8+/10 ~ This is seriously dangerous to your health. Do NOT eat or drink it!'
-                        break;
-                    default:
-                        $denger_image='img/tag_blue.png';
-                        $safety_quote='?/10 ~ There are no data about this additive. Be careful.'
-                }
-                // TEMPLATES MAIN (HOME) PAGE
-                $level_content = '<img src="'+$denger_image+'" alt="'+item.danger+'" class="ui-li-icon" /><p class="ui-li"></p>'+item.tag+'</p><p class="ui-li-aside"><strong>'+item.name+'</strong></p>';
-                $level_a = '<a href="#'+item.tag+'" data-transition="slide" data-inline="true">'+$level_content+'</a>';
-                $level_li = '<li>'+ $level_a +'</li>';
-                // DATA FEED MAIN (HOME) PAGE
-                $actual_value = item.tag.charAt(1);
-                if ($actual_value != $last_value) {
-                    $('#output').children('ul').append('<li data-role="list-divider">E'+$actual_value+'++ </li>');
-                }
-                $('#output').children('ul').append($level_li);
-                $last_value = item.tag.charAt(1);
-                // END OF MAIN (HOME) PAGE
-                // TEMPLATES SINGLE ITEMS
-                $content='<h2>Czech name</h2><p>'+item.name+' ('+item.tag+')</p><h2>Is it safe to eat?</h2><p><img src="'+$denger_image+'" alt="'+item.danger+'" /></p><p>'+$safety_quote+'</p>';
-                $pagebody='<div data-role="page" id="'+item.tag+'"><header data-role="header"><h1>'+item.tag+'</h1><a href="#home" data-transition="slide" data-direction="reverse" data-icon="grid">Food additives</a></header><article data-role="content">'+$content+'</article></div>';
-                // CREATING VIEWS FOR SINGLE ITEMS
-                $('body').append($pagebody);
-                // END OF SINGLE ITEMS
+                $('#output').children('ul').append('<li class="danger'+item.danger+'"><p><span class="danger'+item.danger+'">'+item.danger+'</span> <strong>'+item.tag+'</strong>: '+item.name+'</p></li>');
             });
         });</script>
 </body>
